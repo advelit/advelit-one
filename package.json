@@ -1,6 +1,6 @@
 {
   "name": "advelit-one",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Core Service Provider for Advelit One.",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",

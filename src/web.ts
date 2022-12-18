@@ -1,6 +1,6 @@
 import { WebPlugin } from '@capacitor/core';
 
-import type { AdvelitOnePlugin } from './definitions';
+import type { AdvelitOnePlugin } from './definitions.js';
 
 export class AdvelitOneWeb extends WebPlugin implements AdvelitOnePlugin {
     async removeLauncher(): Promise<any> {

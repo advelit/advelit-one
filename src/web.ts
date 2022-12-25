@@ -19,7 +19,26 @@ export class AdvelitOneWeb extends WebPlugin implements AdvelitOnePlugin {
         return true;
     };
 
+    async isDebuggingOpen(): Promise<any> {
+        return true;
+    };
+
+    async openDebugging(): Promise<any> {
+        return true;
+    };
+
+    async closeDebugging(): Promise<any> {
+        return true;
+    };
+
     async toggleAutoStart(options: { enabled: boolean, serviceClassName?: string }): Promise<any> {
+        return {
+            ...options,
+            status: true,
+        };
+    };
+
+    async runCommand(options: { command: string }): Promise<any> {
         return {
             ...options,
             status: true,

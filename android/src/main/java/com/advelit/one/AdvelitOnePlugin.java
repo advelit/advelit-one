@@ -87,7 +87,8 @@ public class AdvelitOnePlugin extends Plugin {
             e.printStackTrace();
             call.reject(e.getLocalizedMessage(), null, e);
         }
-        if (localProcess != null && localProcess.exitValue() != 0) {
+        if (localProcess != null && localProcess.exitValue() == 0) {
+            call.resolve(new JSObject().put("status", true));
         }
     }
 
@@ -119,20 +120,35 @@ public class AdvelitOnePlugin extends Plugin {
 
     @PluginMethod
     public void isDebuggingOpen(PluginCall call) {
-        boolean isEnabled = Settings.Global.getInt(getActivity().getContentResolver(), Settings.Global.ADB_ENABLED, 0) != 0;
-        call.resolve(new JSObject().put("data", isEnabled));
+        try {
+            boolean isEnabled = Settings.Global.getInt(getActivity().getContentResolver(), Settings.Global.ADB_ENABLED, 0) != 0;
+            call.resolve(new JSObject().put("status", isEnabled));
+        } catch (Exception e) {
+            System.err.println("Exception: " + e.getMessage());
+            call.reject(e.getLocalizedMessage(), null, e);
+        }
     }
 
     @PluginMethod
     public void openDebugging(PluginCall call) {
-        boolean status = Settings.Global.putInt(getActivity().getContentResolver(), Settings.Global.ADB_ENABLED, 1);
-        call.resolve(new JSObject().put("data", status));
+        try {
+            boolean status = Settings.Global.putInt(getActivity().getContentResolver(), Settings.Global.ADB_ENABLED, 1);
+            call.resolve(new JSObject().put("status", status));
+        } catch (Exception e) {
+            System.err.println("Exception: " + e.getMessage());
+            call.reject(e.getLocalizedMessage(), null, e);
+        }
     }
 
     @PluginMethod
     public void closeDebugging(PluginCall call) {
-        boolean status = Settings.Global.putInt(getActivity().getContentResolver(), Settings.Global.ADB_ENABLED, 0);
-        call.resolve(new JSObject().put("data", status));
+        try {
+            boolean status = Settings.Global.putInt(getActivity().getContentResolver(), Settings.Global.ADB_ENABLED, 0);
+            call.resolve(new JSObject().put("status", status));
+        } catch (Exception e) {
+            System.err.println("Exception: " + e.getMessage());
+            call.reject(e.getLocalizedMessage(), null, e);
+        }
     }
 
     @PluginMethod

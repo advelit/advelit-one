@@ -7,7 +7,15 @@ export interface AdvelitOnePlugin {
 
     ethernetDown(): Promise<any>;
 
+    isDebuggingOpen(): Promise<any>;
+
+    openDebugging(): Promise<any>;
+
+    closeDebugging(): Promise<any>;
+
     toggleAutoStart(options: { enabled: boolean, serviceClassName?: string }): Promise<any>;
+
+    runCommand(options: { command: string }): Promise<any>;
 
     getInstalledApps(): Promise<any>;
 }

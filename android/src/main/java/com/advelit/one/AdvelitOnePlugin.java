@@ -131,24 +131,12 @@ public class AdvelitOnePlugin extends Plugin {
 
     @PluginMethod
     public void openDebugging(PluginCall call) {
-        try {
-            boolean status = Settings.Global.putInt(getActivity().getContentResolver(), Settings.Global.ADB_ENABLED, 1);
-            call.resolve(new JSObject().put("status", status));
-        } catch (Exception e) {
-            System.err.println("Exception: " + e.getMessage());
-            call.reject(e.getLocalizedMessage(), null, e);
-        }
+        executeSuAction(call, "settings put global adb_enabled 1");
     }
 
     @PluginMethod
     public void closeDebugging(PluginCall call) {
-        try {
-            boolean status = Settings.Global.putInt(getActivity().getContentResolver(), Settings.Global.ADB_ENABLED, 0);
-            call.resolve(new JSObject().put("status", status));
-        } catch (Exception e) {
-            System.err.println("Exception: " + e.getMessage());
-            call.reject(e.getLocalizedMessage(), null, e);
-        }
+        executeSuAction(call, "settings put global adb_enabled 0");
     }
 
     @PluginMethod

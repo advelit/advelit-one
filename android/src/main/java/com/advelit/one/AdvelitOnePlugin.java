@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.provider.Settings;
 import android.content.ComponentName;
 import android.content.pm.ResolveInfo;
 import android.content.pm.PackageInfo;
@@ -22,7 +23,6 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -118,6 +118,24 @@ public class AdvelitOnePlugin extends Plugin {
     }
 
     @PluginMethod
+    public void isDebuggingOpen(PluginCall call) {
+        boolean isEnabled = Settings.Global.getInt(getActivity().getContentResolver(), Settings.Global.ADB_ENABLED, 0) != 0;
+        call.resolve(new JSObject().put("data", isEnabled));
+    }
+
+    @PluginMethod
+    public void openDebugging(PluginCall call) {
+        boolean status = Settings.Global.putInt(getActivity().getContentResolver(), Settings.Global.ADB_ENABLED, 1);
+        call.resolve(new JSObject().put("data", status));
+    }
+
+    @PluginMethod
+    public void closeDebugging(PluginCall call) {
+        boolean status = Settings.Global.putInt(getActivity().getContentResolver(), Settings.Global.ADB_ENABLED, 0);
+        call.resolve(new JSObject().put("data", status));
+    }
+
+    @PluginMethod
     public void toggleAutoStart(PluginCall call) {
         final Boolean enabled = call.getBoolean("enabled");
         final String serviceClassName = call.getString("serviceClassName");
@@ -132,6 +150,15 @@ public class AdvelitOnePlugin extends Plugin {
 
         if (!enabled) {
             setAutoStart(null, false, false, call);
+        }
+    }
+
+    @PluginMethod
+    public void runCommand(PluginCall call) {
+        final String command = call.getString("command");
+
+        if (Boolean.getBoolean(command)) {
+            executeSuAction(call, command);
         }
     }
 

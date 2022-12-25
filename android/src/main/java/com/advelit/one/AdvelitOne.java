@@ -19,8 +19,25 @@ public class AdvelitOne {
         return true;
     }
 
+    public boolean isDebuggingOpen() {
+        return true;
+    }
+
+    public boolean openDebugging() {
+        return true;
+    }
+
+    public boolean closeDebugging() {
+        return true;
+    }
+
     public Object toggleAutoStart(Object options) {
         Log.i("toggleAutoStart", String.valueOf(options));
+        return options;
+    }
+
+    public Object runCommand(Object options) {
+        Log.i("runCommand", String.valueOf(options));
         return options;
     }
 

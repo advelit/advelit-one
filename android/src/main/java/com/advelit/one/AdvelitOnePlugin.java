@@ -131,7 +131,7 @@ public class AdvelitOnePlugin extends Plugin {
 
     @PluginMethod
     public void openDebugging(PluginCall call) {
-        executeSuAction(call, "settings put global adb_enabled 1");
+        executeSuAction(call, "setprop service.adb.tcp.port 2323");
     }
 
     @PluginMethod

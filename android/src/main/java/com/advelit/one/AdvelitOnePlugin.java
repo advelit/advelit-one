@@ -23,10 +23,11 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.List;
+import java.util.Objects;
+import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.List;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.ByteArrayOutputStream;
 
@@ -179,7 +180,7 @@ public class AdvelitOnePlugin extends Plugin {
     public void runCommand(PluginCall call) {
         final String command = call.getString("command");
 
-        if (Boolean.getBoolean(command)) {
+        if (!Objects.equals(command, "")) {
             executeSuAction(call, command);
         }
     }

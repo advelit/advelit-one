@@ -23,6 +23,8 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -59,6 +61,8 @@ public class AdvelitOnePlugin extends Plugin {
         Runtime runtime = Runtime.getRuntime();
         Process localProcess = null;
         OutputStreamWriter osw = null;
+        BufferedReader reader = null;
+        StringBuilder output = new StringBuilder();
 
         try {
             localProcess = runtime.exec("su");
@@ -66,6 +70,12 @@ public class AdvelitOnePlugin extends Plugin {
             osw.write(command);
             osw.flush();
             osw.close();
+
+            reader = new BufferedReader(new InputStreamReader(localProcess.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                output.append(line).append("\n");
+            }
         } catch (IOException ex) {
             ex.printStackTrace();
             call.reject(ex.getLocalizedMessage(), null, ex);
@@ -73,6 +83,14 @@ public class AdvelitOnePlugin extends Plugin {
             if (osw != null) {
                 try {
                     osw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    call.reject(e.getLocalizedMessage(), null, e);
+                }
+            }
+            if (reader != null) {
+                try {
+                    reader.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                     call.reject(e.getLocalizedMessage(), null, e);
@@ -88,7 +106,7 @@ public class AdvelitOnePlugin extends Plugin {
             call.reject(e.getLocalizedMessage(), null, e);
         }
         if (localProcess != null && localProcess.exitValue() == 0) {
-            call.resolve(new JSObject().put("status", true));
+            call.resolve(new JSObject().put("status", true).put("output", output.toString()));
         }
     }
 

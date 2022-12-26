@@ -208,12 +208,12 @@ public class AdvelitOnePlugin extends Plugin {
 
     @PluginMethod
     public void ethernetUp(PluginCall call) {
-        executeSuAction(call, "ifconfig eth0 up");
+        executeSuAction(call, "ifconfig eth0 up && svc wifi enable");
     }
 
     @PluginMethod
     public void ethernetDown(PluginCall call) {
-        executeSuAction(call, "ifconfig eth0 down");
+        executeSuAction(call, "ifconfig eth0 down && svc wifi disable");
     }
 
     @PluginMethod

@@ -13,6 +13,8 @@ export interface AdvelitOnePlugin {
 
     closeDebugging(): Promise<any>;
 
+    getCPUTemperature(): Promise<any>;
+
     toggleAutoStart(options: { enabled: boolean, serviceClassName?: string }): Promise<any>;
 
     runCommand(options: { command: string }): Promise<any>;

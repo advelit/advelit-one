@@ -31,6 +31,10 @@ public class AdvelitOne {
         return true;
     }
 
+    public boolean getCPUTemperature() {
+        return true;
+    }
+
     public Object toggleAutoStart(Object options) {
         Log.i("toggleAutoStart", String.valueOf(options));
         return options;

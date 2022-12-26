@@ -150,12 +150,17 @@ public class AdvelitOnePlugin extends Plugin {
 
     @PluginMethod
     public void openDebugging(PluginCall call) {
-        executeSuAction(call, "setprop service.adb.tcp.port 2323");
+        executeSuAction(call, "setprop service.adb.tcp.port 2323 && settings put global adb_enabled 1");
     }
 
     @PluginMethod
     public void closeDebugging(PluginCall call) {
         executeSuAction(call, "settings put global adb_enabled 0");
+    }
+
+    @PluginMethod
+    public void getCPUTemperature(PluginCall call) {
+        executeSuAction(call, "cat /sys/class/thermal/thermal_zone0/temp");
     }
 
     @PluginMethod

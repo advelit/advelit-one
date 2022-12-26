@@ -20,6 +20,7 @@ npx cap sync
 * [`isDebuggingOpen()`](#isdebuggingopen)
 * [`openDebugging()`](#opendebugging)
 * [`closeDebugging()`](#closedebugging)
+* [`getCPUTemperature()`](#getcputemperature)
 * [`toggleAutoStart(...)`](#toggleautostart)
 * [`runCommand(...)`](#runcommand)
 * [`getInstalledApps()`](#getinstalledapps)
@@ -99,6 +100,17 @@ openDebugging() => Promise<any>
 
 ```typescript
 closeDebugging() => Promise<any>
+```
+
+**Returns:** <code>Promise&lt;any&gt;</code>
+
+--------------------
+
+
+### getCPUTemperature()
+
+```typescript
+getCPUTemperature() => Promise<any>
 ```
 
 **Returns:** <code>Promise&lt;any&gt;</code>

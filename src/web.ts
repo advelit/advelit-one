@@ -23,6 +23,10 @@ export class AdvelitOneWeb extends WebPlugin implements AdvelitOnePlugin {
         return true;
     };
 
+    async getCPUTemperature(): Promise<any> {
+        return 0;
+    };
+
     async openDebugging(): Promise<any> {
         return true;
     };
